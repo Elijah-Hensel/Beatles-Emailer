@@ -16,3 +16,7 @@ export default async (req, res) => {
 }
 
 export const getUsers = async () => await prisma.user.findMany()
+
+module.exports = {
+  getUsers,
+}

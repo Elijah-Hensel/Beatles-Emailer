@@ -13,6 +13,29 @@ async function saveUser(user) {
   return await response.json()
 }
 
+const beginSendingMailers = (email, name) => {
+  console.log("sending...")
+
+  const data = {
+    email, name
+  }
+
+  fetch("api/contact", {
+    method: "POST",
+    headers: {
+      "Accept": "application/json, text/plain, */*",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(users)
+  }).then((res) => {
+    console.log("Response received")
+    if (res.status === 200) {
+      console.log("Response succeeded!")
+    }
+  })
+}
+
+
 const Form = ({ users, setUsers }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -37,6 +60,7 @@ const Form = ({ users, setUsers }) => {
     try {
       await saveUser({ email, name })
       setUsers([...users, { email, name }])
+      beginSendingMailers(email, name)
       resetForm()
     } catch (error) {
       console.error(error)
