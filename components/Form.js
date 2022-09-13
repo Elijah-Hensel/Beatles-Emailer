@@ -35,7 +35,7 @@ const Form = ({ users, setUsers }) => {
   const submit = async (event, data) => {
     event.preventDefault()
     try {
-      await saveUser({ email })
+      await saveUser({ email, name })
       setUsers([...users, { email, name }])
       resetForm()
     } catch (error) {

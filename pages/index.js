@@ -17,29 +17,9 @@ export async function getServerSideProps() {
   }
 }
 
-async function saveUser(user) {
-  const response = await fetch('/api/user', {
-    method: 'POST',
-    body: JSON.stringify(user),
-  })
-  if (!response.ok) {
-    throw new Error('User not saved', response.statusText)
-  }
-
-  return await response.json()
-}
-
 export default function Home({ initialUsers, messages }) {
   const [users, setUsers] = useState(initialUsers)
 
-  useEffect(() => {
-    const fetchUsers = async () => { 
-      const response = await getUsers()
-      setUsers(response)
-    }
-
-    fetchUsers()
-  }, [users])
   // const onSubmit = (event) => {
   //   event.preventDefault()
   //   console.log("sending...")
