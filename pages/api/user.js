@@ -1,7 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { PrismaClient } from "@prisma/client"
-
-const prisma = new PrismaClient()
+import prisma from "./prisma"
 
 export default async (req, res) => {
   if (req.method !== "POST") {
