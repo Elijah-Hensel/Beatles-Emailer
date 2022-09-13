@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import Form from '../components/Form'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import { getUsers, getMessages } from "./api"
+import { getUsers, getMessages } from './api'
 
 export async function getServerSideProps() {
   const users = await getUsers()
@@ -15,7 +16,6 @@ export async function getServerSideProps() {
     },
   }
 }
-
 
 async function saveUser(user) {
   const response = await fetch('/api/user', {
@@ -30,25 +30,16 @@ async function saveUser(user) {
 }
 
 export default function Home({ initialUsers, messages }) {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [submitted, setSubmitted] = useState(false)
   const [users, setUsers] = useState(initialUsers)
 
-  const updateName = (event) => {
-    setName(event.target.value)
-  }
+  useEffect(() => {
+    const fetchUsers = async () => { 
+      const response = await getUsers()
+      setUsers(response)
+    }
 
-  const updateEmail = (event) => {
-    setEmail(event.target.value)
-  }
-
-  const resetForm = () => {
-    setName('')
-    setEmail('')
-    setSubmitted(false)
-  }
-
+    fetchUsers()
+  }, [users])
   // const onSubmit = (event) => {
   //   event.preventDefault()
   //   console.log("sending...")
@@ -75,39 +66,11 @@ export default function Home({ initialUsers, messages }) {
   //   })
   // }
 
-  const submit = async (event, data) => {
-    event.preventDefault()
-    try {
-      await saveUser({ email })
-      setUsers([...users, { email, name }])
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
   console.log({ users, messages })
 
   return (
     <div className={styles.container}>
-      <form className={styles.main} onSubmit={submit}>
-        <label htmlFor="name">Name</label>
-        <input
-          type="text"
-          name="name"
-          className={styles.inputField}
-          onChange={updateName}
-          value={name}
-        />
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          name="email"
-          className={styles.inputField}
-          value={email}
-          onChange={updateEmail}
-        />
-        <button type="submit">Click</button>
-      </form>
+      <Form users={users} setUsers={setUsers} />
     </div>
   )
 }
