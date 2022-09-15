@@ -1,9 +1,9 @@
 /* eslint-disable import/no-anonymous-default-export */
-import prisma from "./prisma"
+import prisma from './prisma'
 
 export default async (req, res) => {
-  if (req.method !== "GET") {
-    return res.status(405).json({ message: "Method not allowed" })
+  if (req.method !== 'GET') {
+    return res.status(405).json({ message: 'Method not allowed' })
   }
 
   const messageData = JSON.parse(req.body)
@@ -11,4 +11,9 @@ export default async (req, res) => {
   res.json(messageData)
 }
 
-export const getMessages = async () => await prisma.message.findMany()
+export const getMessages = async () =>
+  await prisma.message.findMany({
+    include: {
+      users: true,
+    },
+  })

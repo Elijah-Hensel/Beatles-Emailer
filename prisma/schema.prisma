@@ -20,6 +20,5 @@ model User {
 model Message {
   id      String @id @default(cuid())
   message String
-  user_id String
-  user    User?  @relation(fields: [user_id], references: [id])
+  users   User[]
 }

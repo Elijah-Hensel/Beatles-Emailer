@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Form from './Form'
-import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { getUsers, getMessages } from './api'
 
@@ -12,17 +10,21 @@ export async function getServerSideProps() {
   return {
     props: {
       initialUsers: users,
-      messages,
+      initialMessages: messages,
     },
   }
 }
 
-export default function Home({ initialUsers, messages }) {
+const Home = ({ initialUsers, initialMessages }) => {
   const [users, setUsers] = useState(initialUsers)
+  const [messages, _] = useState(initialMessages)
 
   return (
     <div className={styles.container}>
-      <Form users={users} setUsers={setUsers} />
+      <span>Sign up to receive a The Beatles lyric every minute!</span>
+      <Form users={users} setUsers={setUsers} messages={messages}/>
     </div>
   )
 }
+
+export default Home
