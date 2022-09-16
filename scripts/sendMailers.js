@@ -1,13 +1,15 @@
 const { PrismaClient } = require('@prisma/client')
-
 const prisma = new PrismaClient()
 
+require('dotenv').config()
+const PASSWORD = process.env.password
+const USERNAME = process.env.user
+const SENDER = process.env.sender
+
+let nodemailer = require('nodemailer')
+
 const getUsers = async () =>
-  await prisma.user.findMany({
-    include: {
-      messages: true,
-    },
-  })
+  await prisma.user.findMany()
 
 const getMessages = async () => await prisma.message.findMany()
 
@@ -28,27 +30,32 @@ async function main() {
   // initialize data from from ORM
   const allMessages = await getMessages()
   const allUsers = await getUsers()
+  
+  // add messages array to each user
+  allUsers.forEach((user) => user.messages = [])
 
   // every minute, attempt to send email
   setInterval(async () => {
     allUsers.forEach(async (user) => {
       let filteredMessages = []
-      const { messages } = user
 
       // if user.messages is the same length as allMessages
         // do not send email
-
-      if (userHasReceivedAllMessages(messages, allMessages)) {
-        return console.log(`${user.email} has received all messages`)
+      if (userHasReceivedAllMessages(user.messages, allMessages)) {
+        return console.log(`✅ ${user.email} has received all messages`)
       }
+
+      // if user does not have an email address
+        // return
+      if (!user.email) return console.error(`🛑 Email not sent. User ${user.id} has no email address`)
 
       // loop through allMessages
         // for each message, loop through user.messages
           // if user.messages includes this message move on to the next message
           // if user.messages !includes this message, add it to filteredMessages to be sent to user
       allMessages.forEach((message) => {
-        if (messages.length > 0) {
-          messages.forEach((m) => {
+        if (user.messages.length > 0) {
+          user.messages.forEach((m) => {
             if (message.id === m.id) return
             else filteredMessages.push(message)
           })
@@ -65,24 +72,18 @@ async function main() {
         message:
           filteredMessages[Math.floor(Math.random() * filteredMessages.length)], // filter allMessages to not include messages that are already in user.messages
       }
-
-      await sendMail(data)
-
-      // after email is sent
+            // after email is sent
         // add the message to the user object in allUsers
       addMessageToUser({ user, message: data.message, allUsers })
+      await sendMail(data)
+
     })
   }, 6000)
 }
 
 const sendMail = async (data) => {
-  console.log('MAILING')
-  require('dotenv').config()
-  const PASSWORD = process.env.password
-  const USERNAME = process.env.user
-  const SENDER = process.env.sender
-
-  let nodemailer = require('nodemailer')
+  const { id, email, name, message: { message } } = data
+  console.log(`💌💨 Sending message, ${message},  to ${email}`)
 
   const transporter = nodemailer.createTransport({
     host: 'localhost',
@@ -100,15 +101,15 @@ const sendMail = async (data) => {
 
   const mailData = {
     from: SENDER,
-    to: data.email,
+    to: email,
     subject: `Message From Cope Notes`,
-    html: `<div>Hi ${data.name}! <br> ${data.message.message}</div>`,
+    html: `<div>Hi ${name}! <br> ${message}</div>`,
   }
 
   transporter.sendMail(mailData, async function (err, info) {
     if (err) console.log(err)
     else {
-      console.log(`Email sent successfully to ${mailData.to}`)
+      console.log(`📬 Email sent successfully to ${mailData.to}`)
     }
   })
 }

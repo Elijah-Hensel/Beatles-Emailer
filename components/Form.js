@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import styles from '../styles/Home.module.css'
+import { successToast, errorToast } from "./Toast"
 
 const saveUser = async (user) => {
   const response = await fetch('/api/user', {
@@ -44,9 +45,10 @@ const Form = ({ users, setUsers }) => {
       if (userDoesNotExist()) {
         await saveUser({ email, name })
         setUsers([...users, { email, name }])
+        successToast(`Congratulations, ${name}! You've officially joined the mailing list!`)
         resetForm()
       } else {
-        alert(`${email} has already signed up`)
+        errorToast(`${email} is already in our system. Please try again.`)
         resetForm()
       }
     } catch (error) {
@@ -55,7 +57,7 @@ const Form = ({ users, setUsers }) => {
   }
 
   return (
-    <form className={styles.main} onSubmit={submit}>
+    <form className={styles.form} onSubmit={submit}>
       <label htmlFor="name">Name</label>
       <input
         type="text"
@@ -64,7 +66,7 @@ const Form = ({ users, setUsers }) => {
         onChange={updateName}
         value={name}
       />
-      <label htmlFor="email">Email</label>
+      <label className={styles.inputLabel} htmlFor="email">Email</label>
       <input
         type="email"
         name="email"
@@ -72,7 +74,12 @@ const Form = ({ users, setUsers }) => {
         value={email}
         onChange={updateEmail}
       />
-      <button type="submit">Click</button>
+      <button
+        className={styles.button}
+        type="submit"
+      >
+        Sign Up!
+      </button>
     </form>
   )
 }

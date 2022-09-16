@@ -12,8 +12,4 @@ export default async (req, res) => {
 }
 
 export const getMessages = async () =>
-  await prisma.message.findMany({
-    include: {
-      users: true,
-    },
-  })
+  await prisma.message.findMany()
