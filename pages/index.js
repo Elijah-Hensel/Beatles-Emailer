@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import types from 'prop-types'
 import styles from '../styles/Home.module.css'
 import { getUsers } from './api'
 import Form from '../components/Form'
@@ -26,6 +27,10 @@ const Home = ({ initialUsers }) => {
       </div>
     </div>
   )
+}
+
+Home.propTypes = {
+  initialUsers: types.array.isRequired,
 }
 
 export default Home

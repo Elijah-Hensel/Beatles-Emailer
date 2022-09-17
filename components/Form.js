@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import types from 'prop-types'
 import styles from '../styles/Home.module.css'
 import { successToast, errorToast } from "./Toast"
+import PrimaryButton from "./PrimaryButton"
 
 const saveUser = async (user) => {
   const response = await fetch('/api/user', {
@@ -41,6 +43,10 @@ const Form = ({ users, setUsers }) => {
 
   const submit = async (event, data) => {
     event.preventDefault()
+
+    if (name.length < 1 || email.length < 1)
+      return errorToast("Please enter a valid name and email address.")
+
     try {
       if (userDoesNotExist()) {
         await saveUser({ email, name })
@@ -74,14 +80,17 @@ const Form = ({ users, setUsers }) => {
         value={email}
         onChange={updateEmail}
       />
-      <button
-        className={styles.button}
-        type="submit"
-      >
-        Sign Up!
-      </button>
+      <PrimaryButton
+      type="submit"
+      text="Sign Up!"
+    />
     </form>
   )
+}
+
+Form.propTypes = {
+  users: types.array.isRequired,
+  setUsers: types.func.isRequired,
 }
 
 export default Form

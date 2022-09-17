@@ -2,9 +2,9 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 require('dotenv').config()
-const PASSWORD = process.env.password
-const USERNAME = process.env.user
-const SENDER = process.env.sender
+// const PASSWORD = process.env.password
+// const USERNAME = process.env.user
+// const SENDER = process.env.sender
 
 let nodemailer = require('nodemailer')
 
@@ -88,10 +88,10 @@ const sendMail = async (data) => {
   const transporter = nodemailer.createTransport({
     host: 'localhost',
     port: 1025,
-    auth: {
-      user: USERNAME,
-      pass: PASSWORD,
-    },
+    // auth: {
+    //   user: USERNAME,
+    //   pass: PASSWORD,
+    // },
     pool: true,
     rateLimit: true,
     maxConnections: 500,
@@ -100,7 +100,7 @@ const sendMail = async (data) => {
   })
 
   const mailData = {
-    from: SENDER,
+    from: 'email@example.com',
     to: email,
     subject: `Message From Cope Notes`,
     html: `<div>Hi ${name}! <br> ${message}</div>`,
