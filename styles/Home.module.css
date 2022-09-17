@@ -12,7 +12,7 @@
 .mainLeft {
   width: 50%;
   height: 100%;
-  background-color: #fff;
+  background-color: #7e57c2;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,18 +23,18 @@
   padding: 0 2rem;
   font-family: 'Ultra';
   font-size: 5rem;
-  color: #000;
+  color: #fafafa;
 }
 
 .mainRight {
   width: 50%;
   height: 100%;
-  background: #f4f4f4;
+  background: #fafafa;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  box-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+  box-shadow: #4d2c91 0px 25px 50px -12px;
 }
 
 .container {
@@ -44,8 +44,8 @@
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  background-color: #fff;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  background-color: #f4f4f4;
+  box-shadow:  rgba(77, 44, 145, .1) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 }
 
 .form {
@@ -73,7 +73,7 @@
 
 .button {
   border: none;
-  background: #404040;
+  background: #7e57c2;
   color: #ffffff;
   font-weight: 100;
   padding: 10px;
@@ -87,7 +87,7 @@
 
 .button:hover {
   border: none;
-  background: #646464;
+  background: #4d2c91;
   color: #ffffff;
   transition: all 0.3s ease 0s;
   cursor: pointer;
