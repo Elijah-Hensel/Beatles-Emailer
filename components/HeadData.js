@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import types from 'prop-types'
 
-const Header = ({ title }) => {
+const HeadData = ({ title }) => {
   return (
     <Head>
       <title>
@@ -12,12 +12,12 @@ const Header = ({ title }) => {
   )
 }
 
-Header.defaultProps = {
+HeadData.defaultProps = {
   title: 'Cope Notes: Elijah Hensel',
 }
 
-Header.propTypes = {
+HeadData.propTypes = {
   title: types.string
 }
 
-export default Header
+export default HeadData
