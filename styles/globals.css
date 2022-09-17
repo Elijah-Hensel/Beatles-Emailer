@@ -5,6 +5,9 @@
   --gray-dark: #f4f4f4;
   --purple: #7e57c2;
   --purple-dark: #4d2c91;
+  --toastify-color-progress-success: #017AFF !important;
+  --toastify-icon-color-success: #017AFF !important;
+
 }
 
 html,
