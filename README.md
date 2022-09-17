@@ -20,6 +20,9 @@ First install all dependencies:
 
 To test that the application is installed locally and correctly, run:
 `npm run dev`
+
+Once this command is run, you can open the application at [localhost:3000](https://localhost/300)
+
 ### Set ENV variables
 Create a .env file by running the following in your applications directory:
 ```bash
