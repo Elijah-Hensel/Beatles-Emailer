@@ -25,7 +25,7 @@ const Home = ({ initialUsers }) => {
       <div className={styles.main}>
         <SetupToastContainer />
         <div className={styles.mainLeft}>
-          <span>BEATLES<br />PER<br />SECOND</span>
+          <span>BEATLES<br />PER<br />MINUTE</span>
         </div>
         <div className={styles.mainRight}>
           <div className={styles.container}>
