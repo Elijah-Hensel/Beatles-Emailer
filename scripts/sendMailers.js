@@ -73,14 +73,14 @@ async function main() {
         message:
           filteredMessages[Math.floor(Math.random() * filteredMessages.length)], // filter allMessages to not include messages that are already in user.messages
       }
-      
+
       // after email is sent
         // add the message to the user object in allUsers
       addMessageToUser({ user, message: data.message, allUsers })
       await sendMail(data)
 
     })
-  }, 6000)
+  }, 60000)
 }
 
 const sendMail = async (data) => {
