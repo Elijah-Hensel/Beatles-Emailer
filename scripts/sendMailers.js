@@ -28,6 +28,9 @@ async function main() {
   // initialize data from from ORM
   const allMessages = await getMessages()
   const allUsers = await getUsers()
+
+  // check for users
+  if (allUsers.length < 1) return console.log('🚨 We don\'t have any users to email these Beatles lyrics to! Try again! 🚨')
   
   // add messages array to each user
   allUsers.forEach((user) => user.messages = [])
@@ -70,7 +73,8 @@ async function main() {
         message:
           filteredMessages[Math.floor(Math.random() * filteredMessages.length)], // filter allMessages to not include messages that are already in user.messages
       }
-            // after email is sent
+      
+      // after email is sent
         // add the message to the user object in allUsers
       addMessageToUser({ user, message: data.message, allUsers })
       await sendMail(data)
