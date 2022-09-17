@@ -51,6 +51,7 @@ npm run seed
 note: you can use the frontend to create more users if you'd like
 
 ### Install NodeMailer
+This application unitilizes [nodemailer](https://nodemailer.com/about/) to process the request to send emails in an "easy as cake" way.
 
 ```bash
 npm install nodemailer
