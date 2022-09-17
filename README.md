@@ -50,18 +50,19 @@ npm run seed
 
 note: you can use the frontend to create more users if you'd like
 
-### Install MailHog
-This application is set up to use [mailhog](https://github.com/mailhog/MailHog) SMTP as it's email transaction manager. 
-
-Install mailhog locally by running:
-#### MacOS
-`brew update && brew install mailhog`
-
 ### Install NodeMailer
 
 ```bash
 npm install nodemailer
 ```
+
+### Install MailHog
+This application is set up to use [mailhog](https://github.com/mailhog/MailHog) SMTP as it's email transaction manager. 
+
+Install mailhog locally by running:
+
+#### MacOS
+`brew update && brew install mailhog`
 
 #### other
 ```bash
