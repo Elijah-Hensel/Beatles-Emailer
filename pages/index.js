@@ -2,7 +2,7 @@ import { useState } from 'react'
 import types from 'prop-types'
 import styles from '../styles/Home.module.css'
 import { getUsers } from './api'
-import Header from '../components/Header'
+import HeadData from '../components/HeadData'
 import Form from '../components/Form'
 import { SetupToastContainer } from '../components/Toast'
 
@@ -21,16 +21,20 @@ const Home = ({ initialUsers }) => {
 
   return (
     <>
-    <Header />
-    <div className={styles.main}>
-      <SetupToastContainer />
-      <div className={styles.container}>
-        <span>Sign up to receive a The Beatles lyric every minute!</span>
-        <Form users={users} setUsers={setUsers} />
+      <HeadData />
+      <div className={styles.main}>
+        <SetupToastContainer />
+        <div className={styles.mainLeft}>
+          <span>BEATLES<br />PER<br />SECOND</span>
+        </div>
+        <div className={styles.mainRight}>
+          <div className={styles.container}>
+            <span>Sign up to receive a The Beatles lyric every minute!</span>
+            <Form users={users} setUsers={setUsers} />
+          </div>
+        </div>
       </div>
-    </div>
     </>
-
   )
 }
 
