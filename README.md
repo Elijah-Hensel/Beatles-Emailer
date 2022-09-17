@@ -21,7 +21,7 @@ First install all dependencies:
 To test that the application is installed locally and correctly, run:
 `npm run dev`
 
-Once this command is run, you can open the application at [localhost:3000](https://localhost:3000)
+Once this command is run, you can open the application at `localhost:3000`
 
 ### Set ENV variables
 Create a .env file by running the following in your applications directory:
@@ -42,16 +42,22 @@ HOST=http://$HOSTNAME:$SERVER_PORT
 This application is set up to use [Prisma ORM](https://prisma.io/) and a local dev.db file to contain `users` and `messages`
 To get the database running in your local environment, as well as to display the Prisma UI in your browser, follow these instructions:
 
+❗️ **For the following steps, open a second terminal**
+
 ```bash
 npm install prisma --save-dev
-npx prisma studio
 npx prisma db push  (db may already be in sync with project)
 npm run seed
+npx prisma studio
 ```
+
+Note: `npx prisma studio` will open Prisma's UI dashboard at `localhost:5555`
 
 🚨 3 users and 10 messages will be created
 
 note: you can use the frontend to create more users if you'd like
+
+❗️ **For the following steps, open a third terminal**
 
 ### Install NodeMailer
 This application unitilizes [nodemailer](https://nodemailer.com/about/) to process the request to send emails in an "easy as cake" way.
@@ -77,7 +83,7 @@ go get github.com/mailhog/MailHog
 Then:
 run `mailhog` to start mail server
 
-mailhog runs on [http://localhost:8025/](http://localhost:8025/)
+mailhog runs on `http://localhost:8025/`
 
 ## Running sendMailers script
 in a new terminal run `npm run send-mail` and watch the magic happen
